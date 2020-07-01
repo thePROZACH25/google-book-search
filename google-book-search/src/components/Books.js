@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import SearchArea from "../components/booksComponents/SearchArea";
 import request from "superagent";
-import BookList from "../components/booksComponents/BookList"
+import BookList from "../components/booksComponents/BookList";
 
 class Books extends Component {
   constructor(props) {
@@ -9,6 +9,7 @@ class Books extends Component {
     this.state = {
       books: [],
       searchField: "",
+      sort: "",
     };
   }
 
@@ -20,8 +21,9 @@ class Books extends Component {
         q: this.state.searchField,
       })
       .then((data) => {
-          console.log(data);
-        this.setState({ books: [...data.body.items] });
+        console.log(data);
+        const cleanData = this.cleanData(data);
+        this.setState({ books: cleanData });
       });
   };
 
@@ -30,14 +32,35 @@ class Books extends Component {
     this.setState({ searchField: event.target.value });
   };
 
+  handleSort = (event) => {
+    console.log(event);
+    this.setState({ sort: event.target.value });
+  };
+
+  cleanData = (data) => {
+    const cleanedData = data.body.items.map((book) => {
+      if (book.volumeInfo.hasOwnProperty("publishedDate") === false) {
+        book.volumeInfo["publishDate"] = "0000";
+      } else if (book.volumeInfo.hasOwnProperty("imageLinks") === false) {
+        book.volumeInfo["imageLinks"] = {
+          thumbnail:
+            "https://lh3.googleusercontent.com/proxy/80GtqgPS75EmCFQQmWgModgZnr_r2ssYnV2peAZpaIBbqgkjHSAZ9AVd6ntixhdBSgL5HhDFpmeIb4gFcHxB1vE6g6c66HkSlhLAhupbhH-sbuo",
+        };
+      }
+      return book;
+    });
+    return cleanedData;
+  };
+
   render() {
     return (
       <div>
         <SearchArea
           searchBook={this.searchBook}
           handleSearch={this.handleSearch}
+          handleSort={this.handleSort}
         />
-        <BookList books={this.state.books}/>
+        <BookList books={this.state.books} />
       </div>
     );
   }
