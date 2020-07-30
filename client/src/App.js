@@ -5,9 +5,9 @@ import NavBar from "./components/NavBar/nav";
 import Header from "./components/Header";
 import Wrapper from "./components/Wrapper";
 
-import NoMatch from "./Pages/NoMatch";
-import Search from "./Pages/Search";
-import Saved from "./Pages/Saved";
+import NoMatch from "./pages/NoMatch";
+import Search from "./pages/Search";
+import Saved from "./pages/Saved";
 
 import "./App.css";
 
