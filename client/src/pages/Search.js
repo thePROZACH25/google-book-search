@@ -48,12 +48,12 @@ class Search extends React.Component {
     return (
       <div>
         <Form
-          search={this.state.search}
+          search={this.searchBook}
           handleInputChange={this.handleInputChange}
           handleFormSubmit={this.handleFormSubmit}
         />
         <div className="container">
-          <h2>Results</h2>
+          <h4>Results</h4>
           <Results books={this.state.books} />
         </div>
       </div>

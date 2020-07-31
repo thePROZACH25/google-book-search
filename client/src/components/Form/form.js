@@ -1,26 +1,23 @@
 import React from "react";
 
-function Form(props) {
+function Form({ handleInputChange, searchBook, handleFormSubmit }) {
   return (
     <div className="container">
       <form>
         <div className="form-group">
           <label htmlFor="search">
-            <h2>Search and Save books of Interest</h2>
+            <h4>Search and Save Books You Like</h4>
           </label>
           <input
-            onChange={props.handleInputChange}
-            value={props.search}
+            onChange={handleInputChange}
+            value={searchBook}
             name="search"
             type="text"
             className="form-control"
-            placeholder="Search for a Book"
+            placeholder="Search Books Here"
             id="search"
           />
-          <button
-            onClick={props.handleFormSubmit}
-            className="btn btn-dark mt-3 mb-5"
-          >
+          <button onClick={handleFormSubmit} className="btn btn-dark mt-3 mb-5">
             Search
           </button>
         </div>
